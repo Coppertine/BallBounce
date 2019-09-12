@@ -14,37 +14,7 @@ function menu:load()
 
     love.graphics.setBackgroundColor(1, 1, 1)
 
-    local fonts = {}
-    for i=10, 30 do
-        fonts[i] = love.graphics.newFont(i)
-    end
-
-    local list = loveframes.Create("list")
-    list:SetPos(5, 30)
-    list:SetSize(243, 265)
-    list:SetPadding(5)
-    list:SetSpacing(5)
-    list:SetState("menu")
-
-    local text1 = loveframes.Create("text")
-    text1:SetText(loremipsum)
-    text1:SetShadowColor(0.8, 0.8, 0.8, 1)
-    list:AddItem(text1)
-
-    local colortext = {}
-    for i=1, 49 do
-        local r = math.random()
-        local g = math.random()
-        local b = math.random()
-        table.insert(colortext, {color = {r, g, b, 1}, font = fonts[math.random(1, 30)]})
-        table.insert(colortext, math.random(1, 1000) .. " ")
-    end
-
-    local text2 = loveframes.Create("text")
-    text2:SetPos(255, 30)
-    text2:SetMaxWidth(243)
-    text2:SetText(colortext)
-    text2:SetState("menu")
+    
 
     local shadowbutton = loveframes.Create("button")
     shadowbutton:SetSize(490, 20)
