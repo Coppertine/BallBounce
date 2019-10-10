@@ -9,7 +9,7 @@ function splash:entered()
 end
 
 function splash:load()
-    require("lib.loveframes")
+    
 end
 
 function splash:draw()

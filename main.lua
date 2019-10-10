@@ -1,6 +1,8 @@
+loveframes = {}
 graphics = love.graphics
 states = {
-    menu = require("scenes/menu")
+    menu = require("scenes/menu"),
+    play = require("scenes/play")
 }
 
 
@@ -22,56 +24,3 @@ function resetColor()
     love.graphics.setColor(1,1,1,1)
 end
 
-function love:load()
-    loveframes = require("lib/LoveFrames")
-    
-    states.menu:load()
-end
-
-function love.update(dt)
-             
-    -- your code
-    
-    loveframes.update(dt)
- 
-end
-                 
-function love.draw()
- 
-    
- 
-    loveframes.draw()
- 
-end
- 
-function love.mousepressed(x, y, button)
- 
-    -- your code
- 
-    loveframes.mousepressed(x, y, button)
- 
-end
- 
-function love.mousereleased(x, y, button)
- 
-    -- your code
- 
-    loveframes.mousereleased(x, y, button)
- 
-end
- 
-function love.keypressed(key, unicode)
- 
-    -- your code
- 
-    loveframes.keypressed(key, unicode)
- 
-end
- 
-function love.keyreleased(key)
- 
-    -- your code
- 
-    loveframes.keyreleased(key)
- 
-end
