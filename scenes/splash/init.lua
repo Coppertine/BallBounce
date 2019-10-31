@@ -4,12 +4,14 @@ local splash = {
     }
 }
 
-function splash:entered()
+local load = require("lib/load")
 
+function splash:entered()
+    
 end
 
 function splash:load()
-    
+    load:stages_check()
 end
 
 function splash:draw()
