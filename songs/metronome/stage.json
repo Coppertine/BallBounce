@@ -1,0 +1,26 @@
+{
+    "name":"170BPM",
+    "artist":"Metronome",
+    "creator":"Coppertine",
+    "timing":[
+        {
+            "offset":110,
+            "mspb":352.941176470588,
+            "signature":4
+        }
+    ],
+    "type":"note",
+    "notes":[
+        {
+            "origin":"left",
+            "time":110,
+            "position":30            
+        },
+        {
+            "origin":"top",
+            "time":1169,
+            "position":75
+        }
+    ],
+    "finish":2000
+}
