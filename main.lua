@@ -1,13 +1,13 @@
-graphics = love.graphics
+suit = require "lib/suit"
+
 game = {
-    current_state = "splash",
+    current_state = "menu",
     states = {
         menu = require("scenes/menu"),
-        play = require("scenes/play"),
-        splash = require("scenes/splash")
+        play = require("scenes/play")
     }
 }
-json = require "lib/json"
+
 
 
 function toDecimalRGB(rgb)
@@ -23,9 +23,6 @@ function toDecimalRGBA(rgba)
     local b = rgba[3] / 255
     return {r, g, b, a}
 end
-function resetColor()
-    love.graphics.setColor(1,1,1,1)
-end
 
 
 function game:link_event(event)
@@ -40,6 +37,8 @@ end
 
 game:link_event("draw")
 game:link_event("keypressed")
+game:link_event("mousepressed")
+game:link_event("mousereleased")
 game:link_event("update")
 
 function game:change_state(state)
