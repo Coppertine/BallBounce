@@ -1,13 +1,28 @@
 local play = {
     game = {
-        mode = "grill" -- "grill" or "note"
+        mode = "grill", -- "grill" or "note"
+        orbs = {
+
+        },
+        grill = {
+
+        },
+        playfield_placement = {
+            "Left",
+            "Right",
+            "Top",
+            "Bottom"
+        }
     },
     ball = {
         x = 320,
         y = 240,
         speedX = 0,
-        speedY = 0
-    }
+        speedY = 0,
+        width = 50
+    },
+    map_wall_width = 20,
+    
 }
 
 function play:load()
@@ -15,7 +30,6 @@ function play:load()
 
 end
 
-function play:keypressed(key) 
 function play:keypressed(key)
     
 end
@@ -27,7 +41,13 @@ function play:draw()
 end
 
 function play:update(dt)
+    local window_width, window_height = love.graphics.getDimensions()
+
+    play:detect_objects(dt, window_width, window_height)
     play:movement(dt, window_width, window_height)
+    
+end
+
 function play:movement(dt, window_width, window_height)
     if love.keyboard.isDown("a") then
         self.ball.speedX = self.ball.speedX - 0.2
@@ -65,6 +85,58 @@ function play:movement(dt, window_width, window_height)
         self.ball.speedY = self.ball.speedY * -1
     end
 end
+
+function play:detect_objects(dt, window_width, window_height)
+
+end
+
+function play:generate_orb(_time) 
+    local window_width, window_height = love.graphics.getDimensions()
+    local playfield_placement = play.playfield_placement[math.ceil(love.math.random(1,4))]
+
+    local position_x, position_y = play:getRandomPosition({window_width, window_height}, playfield_placement)
+    
+    local orb = {
+        x = position_x,
+        y = position_y,
+        time = _time
+    }
+
+    table.insert( play.game.orbs,orb)
+
+
+end
+
+-- Does account to wall size --
+function play:getRandomPosition(window_size, playfield_placement)
+    local position = {
+        x = 0,
+        y = 0
+    }
+
+    if playfield_placement == "Left" then
+        position.x = play.map_wall_width
+        position.y = love.math.random(0, window_size.window_height)
+    elseif playfield_placement == "Right" then
+        position.x = window_size.window_width - play.map_wall_width
+        position.y = love.math.random(0, window_size.window_height)
+    elseif playfield_placement == "Top" then
+        position.x = love.math.random(0, window_size.window_width)
+        position.y = play.map_wall_width
+    elseif playfield_placement == "Bottom" then
+        position.x = love.math.random(0, window_size.window_width)
+        position.y = window_size.window_height - play.map_wall_width
+    end
+    
+    return position
+end
+
+function play:draw_walls()
+
+end
+
+function play:draw_objects()
+
 end
 
 return play
