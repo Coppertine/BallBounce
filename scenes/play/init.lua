@@ -12,16 +12,27 @@ local play = {
             "Right",
             "Top",
             "Bottom"
-        }
+        },
+        
     },
     ball = {
         x = 320,
         y = 240,
         speedX = 0,
         speedY = 0,
-        width = 50
+        width = 35
     },
     map_wall_width = 20,
+    assets = {
+        sprite = {
+            orb = love.graphics.newImage("sprites/orb.png"),
+            grill = love.graphics.newImage("sprites/grill.png"),
+            player = love.graphics.newImage("sprites/player.png")
+        },
+        sounds = {
+
+        }
+    }
     
 }
 
@@ -35,9 +46,10 @@ function play:keypressed(key)
 end
 
 function play:draw()
-    love.graphics.circle("fill",self.ball.x,self.ball.y,50,50)
     play:draw_walls()
     play:draw_objects()
+    
+    
 end
 
 function play:update(dt)
@@ -77,11 +89,11 @@ function play:movement(dt, window_width, window_height)
         self.ball.speedY = self.ball.speedY + 0.01        
     end
 
-    if self.ball.x <= self.map_wall_width or self.ball.x >  window_width - self.map_wall_width - self.ball.width then
+    if self.ball.x < self.map_wall_width or self.ball.x >  window_width - self.map_wall_width - self.ball.width then
         self.ball.speedX = self.ball.speedX * -1
     end
 
-    if self.ball.y <= self.map_wall_width or self.ball.y > window_height - self.map_wall_width - self.ball.width then
+    if self.ball.y < self.map_wall_width or self.ball.y > window_height - self.map_wall_width - self.ball.width then
         self.ball.speedY = self.ball.speedY * -1
     end
 end
@@ -132,11 +144,20 @@ function play:getRandomPosition(window_size, playfield_placement)
 end
 
 function play:draw_walls()
+    local window_width, window_height = love.graphics.getDimensions()
+    -- Draw Outer wall
+    love.graphics.setColor(14 / 255, 50 / 255, 48 / 255)
+    love.graphics.rectangle("fill", 0, 0, window_width, window_height)
 
+    -- Draw inner area
+    love.graphics.setColor(14 / 255, 36 / 255, 48 / 255)
+    love.graphics.rectangle("fill", self.map_wall_width, self.map_wall_width, window_width - self.map_wall_width * 2, window_height - self.map_wall_width * 2)
+    
 end
 
 function play:draw_objects()
-
+    love.graphics.setColor(1,1,1)
+    love.graphics.draw(self.assets.sprite.player,self.ball.x,self.ball.y,0.35, 0.35)
 end
 
 return play
