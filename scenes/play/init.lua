@@ -30,7 +30,8 @@ local play = {
             player = love.graphics.newImage("sprites/player.png")
         },
         sounds = {
-
+            orb_tick = "effects/hihat.ogg",
+            song = "songs/metronome/audio.mp3"
         }
     }
     
@@ -58,6 +59,7 @@ function play:update(dt)
     play:detect_objects(dt, window_width, window_height)
     play:movement(dt, window_width, window_height)
     
+    TESound.cleanup()
 end
 
 function play:movement(dt, window_width, window_height)
@@ -100,6 +102,7 @@ end
 
 function play:detect_objects(dt, window_width, window_height)
 
+            self.assets.sounds.orb_tick:play()
 end
 
 function play:generate_orb(_time) 

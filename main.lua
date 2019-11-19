@@ -4,10 +4,13 @@ game = {
     current_state = "menu",
     states = {
         menu = require("scenes/menu"),
-        play = require("scenes/play")
+        play = require("scenes/play"),
+        settings = require("scenes/settings")
     }
 }
 
+settings = require("settings")
+TESound = require("lib/tesound")
 
 
 function toDecimalRGB(rgb)
