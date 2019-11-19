@@ -10,7 +10,7 @@ game = {
 }
 
 settings = require("settings")
-TESound = require("lib/tesound")
+lovebpm = require("lib/lovebpm")
 
 
 function toDecimalRGB(rgb)

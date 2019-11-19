@@ -36,7 +36,7 @@ function play:load()
 end
 
 function play:entered()
-    TESound.play(song, {"master", "song"})
+
 end
 
 function play:keypressed(key)
@@ -55,7 +55,7 @@ function play:update(dt)
     play:detect_objects(dt, window_width, window_height)
     play:movement(dt, window_width, window_height)
     play:generate_objects(dt, window_width, window_height)
-    TESound.cleanup()
+    
 end
 
 function play:movement(dt, window_width, window_height)
@@ -176,9 +176,7 @@ function play:draw_objects()
 end
 
 function play:generate_objects(dt, window_width, window_height)
-    if self.timer % (60000 / 170) == 0 then
-        play:generate_orb(self.timer)
-    end
+    play:generate_orb(self.timer)
 end
 
 return play
