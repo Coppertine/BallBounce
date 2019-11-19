@@ -1,0 +1,7 @@
+{
+    "Lua.diagnostics.globals": [
+        "toDecimalRGBA",
+        "toDecimalRGB",
+        "TESound"
+    ]
+}

@@ -1,5 +1,3 @@
-local filemanager {
-    
-}
+local filemanager = {}
 
 return filemanager

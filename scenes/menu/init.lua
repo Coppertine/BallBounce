@@ -22,10 +22,12 @@ function menu:update(dt)
     if suit.Button("Play", {id=1}, suit.layout:row(200, 30)).hit then
         game:change_state("play")
     end
-    if suit.Button("Exit", {id=2}, suit.layout:row()).hit then
+    if suit.Button("Settings", {id=2}, suit.layout:row()).hit then
+        game:change_state("settings")
+    end
+    if suit.Button("Exit", {id=3}, suit.layout:row()).hit then
         love.event.quit()
     end
-
     
 end
 
