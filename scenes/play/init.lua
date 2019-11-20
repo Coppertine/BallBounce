@@ -8,7 +8,8 @@ local play = {
             "Right",
             "Top",
             "Bottom"
-        }
+        },
+        score = 0
     },
     ball = {
         x = 320,
@@ -25,18 +26,31 @@ local play = {
             player = love.graphics.newImage("sprites/player.png")
         },
         sounds = {
-            orb_tick = "effects/hihat.ogg",
+            orb_tick = love.audio.newSource("effects/Closed-Hi-Hat-1.wav", "static"),
             song = "songs/metronome/audio.mp3"
         }
     },
-    timer = 0
+    timer = 0,
+    song_track,
+    orb_tick 
 }
 
 function play:load()
 end
 
 function play:entered()
+    
+    -- loveBPM
+    self.song_track = lovebpm.newTrack()
+    self.song_track:load(self.assets.sounds.song)
+    self.song_track:setBPM(170 / 4)
+    self.song_track:setOffset(110)
+    self.song_track:on("beat", function(n)
+                                    self:generate_orb(self.song_track:getTime())
+                               end)
+    self.song_track:play()
 
+    self.orb_tick = ripple.newSound(self.assets.sounds.orb_tick)
 end
 
 function play:keypressed(key)
@@ -55,7 +69,7 @@ function play:update(dt)
     play:detect_objects(dt, window_width, window_height)
     play:movement(dt, window_width, window_height)
     play:generate_objects(dt, window_width, window_height)
-    
+    self.song_track:update()
 end
 
 function play:movement(dt, window_width, window_height)
@@ -97,15 +111,15 @@ function play:movement(dt, window_width, window_height)
 end
 
 function play:detect_objects(dt, window_width, window_height)
-    for k, orb in pairs(self.game.orbs) do
+    for k, orb in ipairs(self.game.orbs) do
         local orb_distance_to_player =
             (((self.ball.x + self.ball.width / 2) - orb.x) ^ 2 + ((self.ball.y + self.ball.width / 2) - orb.y) ^ 2) ^
             0.5
 
         if (orb_distance_to_player - self.ball.width / 2) < 25 then
-            self.assets.sounds.orb_tick:play()
+            self.orb_tick:play({volume = game.states.settings.sounds.sound_effect.value})
             self.game.score = self.game.score + 1
-            table.remove(orb)
+            table.remove(self.game.orbs,k)
         end
     end
 end
@@ -133,17 +147,17 @@ function play:getRandomPosition(window_width, window_height, playfield_placement
     }
 
     if playfield_placement == "Left" then
-        position.x = play.map_wall_width
+        position.x = play.map_wall_width - play.map_wall_width
         position.y = love.math.random(0, window_height)
     elseif playfield_placement == "Right" then
         position.x = window_width - play.map_wall_width
         position.y = love.math.random(0, window_height)
     elseif playfield_placement == "Top" then
         position.x = love.math.random(0, window_width)
-        position.y = play.map_wall_width
+        position.y = play.map_wall_width  - 25
     elseif playfield_placement == "Bottom" then
         position.x = love.math.random(0, window_width)
-        position.y = window_height - play.map_wall_width
+        position.y = window_height - play.map_wall_width - 25
     end
 
     return position.x, position.y
@@ -176,7 +190,7 @@ function play:draw_objects()
 end
 
 function play:generate_objects(dt, window_width, window_height)
-    play:generate_orb(self.timer)
+    --play:generate_orb(self.timer)
 end
 
 return play

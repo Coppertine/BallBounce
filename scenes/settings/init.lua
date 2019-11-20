@@ -29,12 +29,9 @@ function settings:update(dt)
     suit.layout:reset(100, 100)
     suit.layout:padding(10)
 
-    if suit.Slider(self.sounds.master, suit.layout:row(love.graphics.getWidth() / 2, love.graphics.getHeight() / 2), 500, 100).changed then
-        TESound.volume("master")
-    end
+    suit.Slider(self.sounds.master, suit.layout:row(love.graphics.getWidth() / 2, love.graphics.getHeight() / 2), 500, 100)
 
-    if suit.Slider(self.sounds.song, suit.layout:row(), 500, 100).changed then
-    end
+    suit.Slider(self.sounds.song, suit.layout:row(), 500, 100)
     
 end
 

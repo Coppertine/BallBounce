@@ -11,6 +11,7 @@ game = {
 
 settings = require("settings")
 lovebpm = require("lib/lovebpm")
+ripple = require "lib.ripple"
 
 
 function toDecimalRGB(rgb)
