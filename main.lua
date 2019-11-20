@@ -9,7 +9,6 @@ game = {
     }
 }
 
-settings = require("settings")
 lovebpm = require("lib/lovebpm")
 ripple = require "lib.ripple"
 
@@ -44,6 +43,7 @@ game:link_event("keypressed")
 game:link_event("mousepressed")
 game:link_event("mousereleased")
 game:link_event("update")
+game:link_event("textinput")
 
 function game:change_state(state)
     if self.states[state] ~= nil then

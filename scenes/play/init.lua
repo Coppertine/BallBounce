@@ -59,7 +59,7 @@ end
 function play:draw()
     play:draw_walls()
     play:draw_objects()
-    love.graphics.print(self.timer)
+    love.graphics.print(self.game.score)
 end
 
 function play:update(dt)
@@ -70,19 +70,24 @@ function play:update(dt)
     play:movement(dt, window_width, window_height)
     play:generate_objects(dt, window_width, window_height)
     self.song_track:update()
+    if love.keyboard.isDown("escape") then
+        table.remove( self.game.orbs)
+        game:change_state("menu")
+        self.song_track:stop()
+    end
 end
 
 function play:movement(dt, window_width, window_height)
-    if love.keyboard.isDown("a") then
+    if love.keyboard.isDown(game.states.settings.controls.left.text) then
         self.ball.speedX = self.ball.speedX - 0.2
     end
-    if love.keyboard.isDown("d") then
+    if love.keyboard.isDown(game.states.settings.controls.right.text) then
         self.ball.speedX = self.ball.speedX + 0.2
     end
-    if love.keyboard.isDown("w") then
+    if love.keyboard.isDown(game.states.settings.controls.up.text) then
         self.ball.speedY = self.ball.speedY - 0.2
     end
-    if love.keyboard.isDown("s") then
+    if love.keyboard.isDown(game.states.settings.controls.down.text) then
         self.ball.speedY = self.ball.speedY + 0.2
     end
 
@@ -147,14 +152,14 @@ function play:getRandomPosition(window_width, window_height, playfield_placement
     }
 
     if playfield_placement == "Left" then
-        position.x = play.map_wall_width - play.map_wall_width
+        position.x = play.map_wall_width
         position.y = love.math.random(0, window_height)
     elseif playfield_placement == "Right" then
-        position.x = window_width - play.map_wall_width
+        position.x = window_width - play.map_wall_width - 25
         position.y = love.math.random(0, window_height)
     elseif playfield_placement == "Top" then
         position.x = love.math.random(0, window_width)
-        position.y = play.map_wall_width  - 25
+        position.y = play.map_wall_width
     elseif playfield_placement == "Bottom" then
         position.x = love.math.random(0, window_width)
         position.y = window_height - play.map_wall_width - 25
