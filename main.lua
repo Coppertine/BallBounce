@@ -5,8 +5,10 @@ game = {
     states = {
         menu = require("scenes/menu"),
         play = require("scenes/play"),
-        settings = require("scenes/settings")
-    }
+        settings = require("scenes/settings"),
+        scoreboard = require("scenes/score")
+    },
+    scoreboard = require "scoreboard"
 }
 
 lovebpm = require("lib/lovebpm")
